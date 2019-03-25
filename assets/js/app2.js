@@ -70,7 +70,7 @@ var questionBank = [
 var quiz ={
     correct: 0,
     inncorrect: 0,
-    counter: 3,
+    counter: 60,
 
     //method to decrease the counter
     countdown: function(){
@@ -93,42 +93,103 @@ var quiz ={
             }
         }
     },
-    //this method clears the questions and replaces it with the score
+    //this method will loop through each questions and check the users input
     end: function(){
-        clearInterval(timer);
-        $("#questions").empty();
-        $("#questions").html("<h2>Your Score</h2>");
-        $("#questions").append("<br> <h3>Correct Answers: " +quiz.correct+ "</h3>");
-        $("#questions").append("<h3>Incorrect Answers: " +quiz.incorrect + "</h3>");
-        $("#questions").append("<h3>Unanswered: "+(questionBank.length-(quiz.incorrect+quiz.correct))+"</h3>");
         
-        //this loop will check the users input on each question
-        $.each($('input[name="question-0]":checked'), function(){
-            if($(this).val()==questionBank[0].answer){
+        $.each($("input[name='question-0']:checked"), function(){
+            if ($(this).val() == questionBank[0].answer) {
                 quiz.correct++;
-            } else{
+            } else {
                 quiz.incorrect++;
             }
             console.log("true")
         });
-
-        $.each($('input[name="question-1]":checked'), function(){
-            if($(this).val()==questionBank[1].answer){
+        $.each($("input[name='question-1']:checked"), function(){
+            if ($(this).val() == questionBank[1].answer) {
                 quiz.correct++;
-            } else{
+            } else {
                 quiz.incorrect++;
             }
             console.log("true")
         });
-
-        $.each($('input[name="question-2]":checked'), function(){
-            if($(this).val()==questionBank[2].answer){
+        $.each($("input[name='question-2']:checked"), function(){
+            if ($(this).val() == questionBank[2].answer) {
                 quiz.correct++;
-            } else{
+            } else {
+                quiz.incorrect++;
+            }
+            console.log("false")
+        });
+        $.each($("input[name='question-3']:checked"), function(){
+            if ($(this).val() == questionBank[3].answer) {
+                quiz.correct++;
+            } else {
+                quiz.incorrect++;
+            }
+            console.log("false")
+        });
+        $.each($("input[name='question-4']:checked"), function(){
+            if ($(this).val() == questionBank[4].answer) {
+                quiz.correct++;
+            } else {
+                quiz.incorrect++;
+            }
+            console.log("true")
+        });
+        $.each($("input[name='question-5']:checked"), function(){
+            if ($(this).val() == questionBank[5].answer) {
+                quiz.correct++;
+            } else {
+                quiz.incorrect++;
+            }
+            console.log("false")
+        });
+        $.each($("input[name='question-6']:checked"), function(){
+            if ($(this).val() == questionBank[6].answer) {
+                quiz.correct++;
+            } else {
+                quiz.incorrect++;
+            }
+            console.log("true")
+        });
+        $.each($("input[name='question-7']:checked"), function(){
+            if ($(this).val() == questionBank[7].answer) {
+                quiz.correct++;
+            } else {
+                quiz.incorrect++;
+            }
+            console.log("false")
+        });
+        $.each($("input[name='question-8']:checked"), function(){
+            if ($(this).val() == questionBank[8].answer) {
+                quiz.correct++;
+            } else {
+                quiz.incorrect++;
+            }
+            console.log("false")
+        });
+        $.each($("input[name='question-9']:checked"), function(){
+            if ($(this).val() == questionBank[9].answer) {
+                quiz.correct++;
+            } else {
                 quiz.incorrect++;
             }
             console.log("false")
         });
 
+        this.score();
+    },
+
+    //this final metbod will display the quiz results
+    score: function(){
+    clearInterval(timer);
+    $("#questions").empty();
+    $("#questions").html("<h2>Your Score</h2>");
+    $("#questions").append("<br> <h3>Correct Answers: " +quiz.correct+ "</h3>");
+    $("#questions").append("<h3>Incorrect Answers: " +quiz.incorrect + "</h3>");
+    $("#questions").append("<h3>Unanswered: "+(questionBank.length-(quiz.incorrect+quiz.correct))+"</h3>");
+    
+    //restart the quiz
+    
     }
 }
