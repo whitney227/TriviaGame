@@ -70,7 +70,7 @@ var questionBank = [
 var clock = { 
     correct: 0,
     incorrect: 0,
-    counter: 20,
+    counter: 3,
    
     //this method decreases the the time and calls the results when reaches zero
     countdown:  function(){
@@ -88,7 +88,7 @@ var clock = {
         for (var i=0; i<questionBank.length; i++){
         $("#questions").append("<h4>" + questionBank[i].question + "</h4>");
             for (var j=0; j<questionBank[i].choices.length; j++){
-                $("#questions").append("<input type = 'radio' name='question-"+i+" 'value' "+questionBank[i].choices[j]+" '>"+questions[i].choices[j])
+                $("#questions").append('<input type="radio")
                 }
         }
     },
