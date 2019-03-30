@@ -92,7 +92,6 @@ var quiz ={
                     $("#questions").append('<input type="radio" name='+questionBank[i].question.choices[j]+' value='+j+'>')
                     console.log(j);
                     }
-
             }
         },
 
