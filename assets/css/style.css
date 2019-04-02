@@ -12,6 +12,7 @@ body{
     outline-color: black;
     outline-style: solid;
     outline-width: 5px;
-
-
+}
+input{
+    margin: auto;
 }

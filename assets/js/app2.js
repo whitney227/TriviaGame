@@ -5,79 +5,83 @@ $(".btn").on("click", function(){
     quiz.start();
     console.log("clock running")
 })
+
 var questionBank = [
     {
     question: "Hartsfield-Jackson Airport in Atlanta is the world's busiest airport.",
-    choices: ["Sounds Good", "Not Likely"],
-    answer: "Sounds Good"
+    choices: ["True", "False"],
+    answer: "True"
     },
 
     {
     question: "France is the most visited country in the world.",
-    choices: ["Sounds Good", "Not Likely"],
-    answer: "Sounds Good"
+    choices: ["True", "False"],
+    answer: "True",
     },
 
     {
     question: "Paris is the most visited city in the world.",
-    choices: ["Sounds Good", "Not Likely"],
-    answer: "Not Likely"
+    choices: ["True", "False"],
+    answer: "False"
     },
 
     {
     question: "The US has the most number of lakes in the world.",
-    choices: ["Sounds Good", "Not Likely"],
-    answer: "Not Likely"
+    choices: ["True", "False"],
+    answer: "False"
     },
 
     {
     question: "Switzerland is Europe's most mountainous country.",
-    choices: ["Sounds Good", "Not Likely"],
-    answer: "Not Likely"
+    choices: ["True", "False"],
+    answer: "True"
     },
 
     {
     question: "Okinawa is a volcano in Hawaii.",
-    choices: ["Sounds Good", "Not Likely"],
-    answer: "Not Likely"
+    choices: ["True", "False"],
+    answer: "False"
     },
 
     {
     question: "Brazil is South America's largest country.",
-    choices: ["Sounds Good", "Not Likely"],
-    answer: "Sounds Good"
+    choices: ["True", "False"],
+    answer: "True"
     },
 
     {
     question: "Indonesia is made up of 25 islands.",
-    choices: ["Sounds Good", "Not Likely"],
-    answer: "Not Likely"
+    choices: ["True", "False"],
+    answer: "False"
     },
 
     {
     question: "Lions are the deadliest animal in Africa.",
-    choices: ["Sounds Good", "Not Likely"],
-    answer: "Not Likely"
+    choices: ["True", "False"],
+    answer: "False"
     },
 
     {
     question: "Timbuktu is an actual place in Australia.",
-    choices: ["Sounds Good", "Not Likely"],
-    answer: "Not Likely"
+    choices: ["True", "False"],
+    answer: "False"
     },
 ];
 
 var quiz ={
     correct: 0,
     incorrect: 0,
-    counter: 10,
+    unanswered: 10,
+    counter: 60,
+  
 
     //method to decrease the counter
     countdown: function(){
-        $("#counter").html(quiz.counter);
         quiz.counter--;
-        if (quiz.counter==0){
-            quiz.score();
+        $("#counter").html(quiz.counter);
+        if (quiz.counter<=0){
+            quiz.done();
+            quiz.result();
         }
     },
 
@@ -85,112 +89,131 @@ var quiz ={
     start: function(){
         timer=setInterval(quiz.countdown,1000);
         $("#questions").prepend("<h2>Time Remaining: <span id='counter'>60</span> Seconds</h2>");
-        $(".btn").remove();
+        $(".btn").hide();
         for(var i=0; i<questionBank.length; i++){
             $("#questions").append('<h4>' + questionBank[i].question + '</h4>');    
                 for (var j=0; j<questionBank[i].choices.length; j++){
-                    $("#questions").append('<input type="radio" name='+questionBank[i].question.choices[j]+' value='+j+'>')
+                    $("#questions").append("<input type='radio' name='userChoice- "+[i]+"' value='"+questionBank[i].choices[j]+"'>" +questionBank[i].choices[j])
                     console.log(j);
                     }
             }
         },
 
-    //metbod will display the quiz results and stop the results
-    score: function(){
-        clearInterval(timer);
-        $("#questions").empty();
-        $("#questions").html("<h2>Your Score</h2>");
-        
-    //this will loop through each question to check the users input
-        $.each($("input[name='question-0']:checked"), function(){
-            if ($(this).type()== questionBank[0].answer) {
-                quiz.correct++;
-            } else {
-                quiz.incorrect++;
-            }
-            console.log("true")
-        });
+    //method to check the input for each question
+    done: function(){
 
-        $.each($("input[name='question-1']:checked"), function(){
-            if ($(this).type() == questionBank[1].answer) {
-                quiz.correct++;
-            } else {
-                quiz.incorrect++;
-            }
-            console.log("true")
-        });
-        $.each($("input[name='question-2']:checked"), function(){
-            if ($(this).type() == questionBank[2].answer) {
-                quiz.correct++;
-            } else {
-                quiz.incorrect++;
-            }
-            console.log("false")
-        });
-        $.each($("input[name='question-3']:checked"), function(){
-            if ($(this).typel() == questionBank[3].answer) {
-                quiz.correct++;
-            } else {
-                quiz.incorrect++;
-            }
-            console.log("false")
-        });
-        $.each($("input[name='question-4']:checked"), function(){
-            if ($(this).type() == questionBank[4].answer) {
-                quiz.correct++;
-            } else {
-                quiz.incorrect++;
-            }
-            console.log("true")
-        });
-        $.each($("input[name='question-5']:checked"), function(){
-            if ($(this).type() == questionBank[5].answer) {
-                quiz.correct++;
-            } else {
-                quiz.incorrect++;
-            }
-            console.log("false")
-        });
-        $.each($("input[name='question-6']:checked"), function(){
-            if ($(this).type() == questionBank[6].answer) {
-                quiz.correct++;
-            } else {
-                quiz.incorrect++;
-            }
-            console.log("true")
-        });
-        $.each($("input[name='question-7']:checked"), function(){
-            if ($(this).type() == questionBank[7].answer) {
-                quiz.correct++;
-            } else {
-                quiz.incorrect++;
-            }
-            console.log("false")
-        });
-        $.each($("input[name='question-8']:checked"), function(){
-            if ($(this).type() == questionBank[8].answer) {
-                quiz.correct++;
-            } else {
-                quiz.incorrect++;
-            }
-            console.log("false")
-        });
-        $.each($("input[name='question-9']:checked"), function(){
-            if ($(this).type() == questionBank[9].answer) {
-                quiz.correct++;
-            } else {
-                quiz.incorrect++;
-            } 
-            console.log("false")
-        });
+        if($('input[name=userChoice-0]:checked').val()===questionBank[0].answer){
+            quiz.correct++;
+            quiz.unanswered--;
+
+        } else {
+            quiz.incorrect++;
+            quiz.unanswered--;
+        }
+            console.log("Q1")
         
-        $("#questions").append("<br> <h3>Correct Answers: " +quiz.correct+ "</h3>");
-        $("#questions").append("<h3>Incorrect Answers: " +quiz.incorrect + "</h3>");
-        $("#questions").append("<h3>Unanswered: "+(questionBank.length-(quiz.incorrect+quiz.correct))+"</h3>");
-        
+        if($('input[name=userChoice-1]:checked').val()===questionBank[1].answer){
+            quiz.correct++;
+            quiz.unanswered--;
+
+        } else {
+            quiz.incorrect++;
+            quiz.unanswered--;
+        }
+            console.log("Q2")
+
+        if($('input[name=userChoice-2]:checked').val()===questionBank[2].answer){
+            quiz.correct++;
+            quiz.unanswered--;
+
+        } else {
+            quiz.incorrect++;
+            quiz.unanswered--;
+        }
+            console.log("Q3")
+
+        if($('input[name=userChoice-3]:checked').val()===questionBank[3].answer){
+            quiz.correct++;
+            quiz.unanswered--;
+
+        } else {
+            quiz.incorrect++;
+            quiz.unanswered--;
+        }
+            console.log("Q4")
+
+        if($('input[name=userChoice-4]:checked').val()===questionBank[4].answer){
+            quiz.correct++;
+            quiz.unanswered--;
+    
+        } else {
+            quiz.incorrect++;
+            quiz.unanswered--;
+        }
+            console.log("Q5")
+
+        if($('input[name=userChoice-5]:checked').val()===questionBank[5].answer){
+            quiz.correct++;
+            quiz.unanswered--;
+    
+        } else {
+            quiz.incorrect++;
+            quiz.unanswered--;
+        }
+            console.log("Q6")    
+    
+        if($('input[name=userChoice-6]:checked').val()===questionBank[6].answer){
+            quiz.correct++;
+            quiz.unanswered--;
+    
+        } else {
+            quiz.incorrect++;
+            quiz.unanswered--;
+        }
+            console.log("Q7")
+
+        if($('input[name=userChoice-7]:checked').val()===questionBank[7].answer){
+            quiz.correct++;
+            quiz.unanswered--;
+    
+        } else {
+            quiz.incorrect++;
+            quiz.unanswered--;
+        }
+            console.log("Q8")
+
+        if($('input[name=userChoice-8]:checked').val()===questionBank[8].answer){
+            quiz.correct++;
+            quiz.unanswered--;
+    
+        } else {
+            quiz.incorrect++;
+            quiz.unanswered--;
+        }
+            console.log("Q9")
+
+        if($('input[name=userChoice-9]:checked').val()===questionBank[9].answer){
+            quiz.correct++;
+            quiz.unanswered--;
+    
+        } else {
+            quiz.incorrect++;
+            quiz.unanswered--;
+        }
+            console.log("Q10")
     },
     
-    //restart the quiz
-    
+    result: function(){
+        clearInterval(timer);
+        $("#questions h2").remove();
+        $("#questions").html("<h2>Your Score</h2>");
+        $("#questions").append("<h3>Correct Answers: " +quiz.correct+ "</h3>");
+        $("#questions").append("<h3>Incorrect Answers: " +quiz.incorrect+ "</h3>");
+        $("#questions").append("<h3>Unanswered: " +quiz.unanswered+ "</h3>"); 
+    },   
 }
+
+
+           
+            
 
