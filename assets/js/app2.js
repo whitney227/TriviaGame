@@ -93,7 +93,7 @@ var quiz ={
         for(var i=0; i<questionBank.length; i++){
             $("#questions").append('<h4>' + questionBank[i].question + '</h4>');    
                 for (var j=0; j<questionBank[i].choices.length; j++){
-                    $("#questions").append("<input type='radio' name='userChoice- "+[i]+"' value='"+questionBank[i].choices[j]+"'>" +questionBank[i].choices[j])
+                    $("#questions").append("<input type='radio' name='userChoice-"+[i]+"' value='"+questionBank[i].choices[j]+"'>" +questionBank[i].choices[j])
                     console.log(j);
                     }
             }
